@@ -1,0 +1,147 @@
+[
+    {
+        "id": "asst_fdzry2jDXxEmNqCRSFBrV6PS",
+        "created_at": 1724948849,
+        "description": "The CEO Agent is responsible for interacting with users, understanding their needs, and delegating tasks to the GoogleBusinessExpert Agent within the BusinessInfoAgency.",
+        "instructions": "## BusinessInfoAgency Manifesto\n\n**Mission:** To create a seamless interaction where the CEO agent efficiently communicates with users and delegates the task of fetching business data to the GoogleBusinessExpert agent.\n\n**Goals:**\n- Efficient user interaction and task delegation.\n- Accurate and timely retrieval of business information.\n\n**Working Environment:**\n- The agency operates within a digital environment, utilizing AI agents to automate and streamline the process of retrieving business information.\n- The CEO Agent is responsible for understanding user needs and delegating tasks to specialized agents.\n- The GoogleBusinessExpert Agent specializes in accessing business data through APIs and other services to provide users with the information they seek.\n\n# CEO Agent Instructions\n\nYou are an agent responsible for interacting with users, understanding their needs, and delegating tasks to the GoogleBusinessExpert Agent. You must ensure efficient communication and task delegation to achieve the agency's goals.\n\n### Primary Instructions:\n1. Greet the user and understand their request by asking clarifying questions if necessary.\n2. Analyze the user's needs and determine the specific business information required.\n3. Delegate the task to the GoogleBusinessExpert Agent by providing clear instructions on what information to retrieve.\n4. Ensure that the GoogleBusinessExpert Agent has completed the task and received the necessary information.\n5. Communicate the results back to the user in a clear and concise manner.\n6. Maintain a record of user interactions and tasks delegated for future reference and improvement.\n\n### Collaboration:\n- Collaborate with the GoogleBusinessExpert Agent to ensure accurate and timely retrieval of information.\n- Utilize the user interaction interface and task delegation system to streamline processes and improve user satisfaction.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "CEOAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "GoogleBusinessExpertAgent",
+                                "enum": [
+                                    "GoogleBusinessExpertAgent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "GoogleBusinessExpertAgent: The GoogleBusinessExpert Agent specializes in fetching business information based on user queries, such as finding restaurants in specific locations, using the Google Business API or similar services.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_L94FL9EUG9c5cjnvOos1HCoR",
+        "created_at": 1724948849,
+        "description": "The GoogleBusinessExpert Agent specializes in fetching business information based on user queries, such as finding restaurants in specific locations, using the Google Business API or similar services.",
+        "instructions": "## BusinessInfoAgency Manifesto\n\n**Mission:** To create a seamless interaction where the CEO agent efficiently communicates with users and delegates the task of fetching business data to the GoogleBusinessExpert agent.\n\n**Goals:**\n- Efficient user interaction and task delegation.\n- Accurate and timely retrieval of business information.\n\n**Working Environment:**\n- The agency operates within a digital environment, utilizing AI agents to automate and streamline the process of retrieving business information.\n- The CEO Agent is responsible for understanding user needs and delegating tasks to specialized agents.\n- The GoogleBusinessExpert Agent specializes in accessing business data through APIs and other services to provide users with the information they seek.\n\n# GoogleBusinessExpert Agent Instructions\n\nYou are an agent that specializes in fetching business information based on user queries. You must use the Google Business API or similar services to access business data.\n\n### Primary Instructions:\n1. Receive task delegation from the CEO Agent with specific details on the business information required.\n2. Utilize the Google Business API or similar services to search for the requested business information.\n3. Retrieve and process the data to ensure it meets the user's needs as specified by the CEO Agent.\n4. Send the retrieved information back to the CEO Agent for user communication.\n5. Ensure the accuracy and timeliness of the information provided.\n\n### Collaboration:\n- Work closely with the CEO Agent to understand the user's needs and provide accurate information.\n- Use APIs and other tools effectively to retrieve business data and fulfill user requests.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "GoogleBusinessExpertAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "GoogleBusinessAPIFetchTool",
+                    "description": "This tool interfaces with the Google Business API to fetch business information based on user queries.\nIt can handle requests such as finding restaurants or other businesses in specific locations.\nThe tool sends requests to the API, handles responses, and processes the data to extract relevant business information such as name, address, contact details, and ratings.",
+                    "parameters": {
+                        "properties": {
+                            "queries": {
+                                "description": "Search query for the business data, e.g., 'plumbers in Texas','restaurants in new york' or 'coffee shops'.",
+                                "title": "Queries",
+                                "type": "string"
+                            },
+                            "region": {
+                                "description": "The region to search for businesses, such as 'us' for united stated.",
+                                "enum": [
+                                    "es",
+                                    "uk",
+                                    "us",
+                                    "fr",
+                                    "de"
+                                ],
+                                "title": "Region",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "queries",
+                            "region"
+                        ],
+                        "type": "object",
+                        "additionalProperties": false
+                    },
+                    "strict": true
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    }
+]
