@@ -13,5 +13,6 @@ agency = Agency([ceo,
                 )
 
 if __name__ == '__main__':
-    completion_output = agency.get_completion("find me the phone number of ecommerce business and there names in tampa.", yield_messages=False)
-    print(completion_output)
+    agency.demo_gradio()
+    # completion_output = agency.get_completion("find me the phone number of ecommerce business and there names in tampa.", yield_messages=False)
+    # print(completion_output)
