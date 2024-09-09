@@ -12,6 +12,8 @@ agency = Agency([ceo,
                 temperature=0.3,  # default temperature for all agents
                 )
 
+
+
 if __name__ == '__main__':
     agency.demo_gradio()
     # completion_output = agency.get_completion("find me the phone number of ecommerce business and there names in tampa.", yield_messages=False)
